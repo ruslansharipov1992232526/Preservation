@@ -12,6 +12,7 @@ public class Main {
         String pathZipFile = "/Users/ruslansharipov/Games/savegames/zip_file.zip";
         saveGame(gameProgress, gameProgress2, gameProgress3, path);
         zipFiles(pathZipFile, path);
+        removalFromOutside(path);
     }
     public static void saveGame(GameProgress gameProgress, GameProgress gameProgress2, GameProgress gameProgress3, String path) {
         try (FileOutputStream fos = new FileOutputStream(path);
@@ -33,15 +34,17 @@ public class Main {
             fis.read(buffer);
             zout.write(buffer);
             zout.closeEntry();
-            File file = new File(path);
-            if(file.delete()) {
-                System.out.println("Файлы вне архива удалены");
-            } else {
-                System.out.println("Ошибка в коде!");
-            }
     } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
 
+    }
+    public static void removalFromOutside(String path) {
+        File file = new File(path);
+        if(file.delete()) {
+            System.out.println("Файлы вне архива удалены");
+        } else {
+            System.out.println("Ошибка в коде!");
+        }
     }
 }
